@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import 'babel-polyfill'
 // import { routerMode } from './config/env'
-import store from './store'
+// import store from './store'
 // import './config/rem'
 import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
 Vue.config.productionTip = false
@@ -40,7 +40,7 @@ Vue.prototype.$message = Message
 new Vue({
   el: '#app',
   router,
-  store,
+  // store,
   template: '<App/>',
   components: {App}
 })
