@@ -1,0 +1,21 @@
+<template>
+  <div class="index">
+    <p>{{msg}}</p>
+    <router-link to="/index/home">go to home</router-link>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  export default {
+    name: 'home',
+    data () {
+      return {
+        msg: 'this is the index component!'
+      }
+    }
+  }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="stylus" rel="stylesheet/stylus"></style>
