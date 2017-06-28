@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <router-link to="components">
+    <router-link to="/components">
       <el-button>components</el-button>
     </router-link>
-    <router-link to="hello">
+    <!--注意在这里必须加这个斜线，不然二级路由切换回一级路由会出现问题-->
+    <router-link to="/hello">
       <el-button>hello</el-button>
     </router-link>
     <router-view></router-view>

@@ -1,5 +1,5 @@
 {
-  "name": "vue-template",
+  "name": "market-element_fe",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "周宝 <baobaozhou199606@gmail.com>",
@@ -15,7 +15,8 @@
     "element-ui": "^1.3.5",
     "express": "^4.15.3",
     "vue": "^2.3.3",
-    "vue-router": "^2.3.1"
+    "vue-router": "^2.3.1",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -72,5 +73,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fushengshe/market-element.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fushengshe/market-element/issues"
+  },
+  "homepage": "https://github.com/Fushengshe/market-element#readme"
 }
