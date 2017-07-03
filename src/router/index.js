@@ -8,7 +8,12 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: 'components'
+      name: 'index',
+      component (resolve) {
+        require.ensure(['@/pages/index.vue'], () => {
+          resolve(require('@/pages/index.vue'))
+        })
+      }
     },
     {
       path: '/hello',
@@ -27,8 +32,43 @@ const router = new Router({
           resolve(require('@/components/components.vue'))
         })
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component (resolve) {
+        require.ensure(['@/pages/login.vue'], () => {
+          resolve(require('@/pages/login.vue'))
+        })
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component (resolve) {
+        require.ensure(['@/pages/register.vue'], () => {
+          resolve(require('@/pages/register.vue'))
+        })
+      }
     }
   ]
+})
+
+// 验证 token，存在才跳转
+router.beforeEach((to, from, next) => {
+	let token = localStorage.getItem('token')
+	if(to.meta.requireAuth) {
+		if(token) {
+			next()
+		} else {
+			next({
+				path: '/login',
+				query: { redirect: to.fullPath }
+			})
+		}
+	} else {
+		next()
+	}
 })
 
 export default router
