@@ -9,8 +9,8 @@ const router = new Router({
       path: '/',
       name: 'index',
       component (resolve) {
-        require.ensure(['@/pages/index.vue'], () => {
-          resolve(require('@/pages/index.vue'))
+        require.ensure(['@/pages/home/index.vue'], () => {
+          resolve(require('@/pages/home/index.vue'))
         })
       }
     },

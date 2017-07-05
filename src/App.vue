@@ -23,23 +23,13 @@
   }
 </script>
 
-<<<<<<< HEAD
-<style lang="stylus">
-  html, body{
-    margin 0
-    padding 0
-  }
 
-=======
 <style lang="stylus" scoped>
->>>>>>> f8dae3b8176c2f44f3713a1d2bb4ed4fbac598ca
   #app {
     font-family 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
     text-align center
-<<<<<<< HEAD
-=======
     color #2c3e50
     margin-top 60px
     .amap-wrapper {
@@ -47,6 +37,5 @@
       height 500px
       margin 0 auto
     }
->>>>>>> f8dae3b8176c2f44f3713a1d2bb4ed4fbac598ca
   }
 </style>

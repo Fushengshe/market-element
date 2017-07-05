@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <p>{{msg}}</p>
-    <router-link to="/index/home">go to home</router-link>
+    <router-link to="/register">register</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -18,4 +18,5 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+</style>
