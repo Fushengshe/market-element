@@ -13,12 +13,12 @@
           <el-input v-model="ruleFormRegister.mailNum" placeholder="请输入邮箱/手机号"></el-input>
          </el-form-item>
 
-         <el-form-item label="密码" class = "form-psd" prop = "psd">
-          <el-input v-model="ruleFormRegister.psd" type = "password" placeholder="请输入密码"></el-input>
+         <el-form-item label="密码" class = "form-password" prop = "password">
+          <el-input v-model="ruleFormRegister.password" type = "password" placeholder="请输入密码"></el-input>
          </el-form-item>
 
-         <el-form-item label="密码确认" class = "form-checkPsd" prop = "checkPsd">
-          <el-input v-model="ruleFormRegister.checkPsd" type = "password" placeholder="请确认密码"></el-input>
+         <el-form-item label="密码确认" class = "form-checkPassword" prop = "checkPassword">
+          <el-input v-model="ruleFormRegister.checkPassword" type = "password" placeholder="请确认密码"></el-input>
          </el-form-item>
       </el-form>
 
@@ -28,31 +28,32 @@
       <router-link to = "#" class = "issue">登录时遇到问题？</router-link>
     </div>
   </div>
-</div>
 </template>
 
 <script type="text/ecmascript-6">
+  import api from '../config/api'
+  import { Message } from 'element-ui'
   export default {
     name: 'register',
     data () {
-      let checkmailNum = (rule, value, callback) => {
+      let checkMailNum = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('用户名不能为空'))
         } else {
           callback()
         }
       }
-      let checkpsd = (rule, value, callback) => {
+      let checkPassword = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('密码不能为空'))
         } else {
           callback()
         }
       }
-      let checkpsd2 = (rule, value, callback) => {
+      let checkVerifyPassword = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'))
-        } else if (value !== this.ruleFormRegister.psd) {
+        } else if (value !== this.ruleFormRegister.password) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -61,30 +62,39 @@
       return {
         ruleFormRegister: {
           mailNum: '',
-          psd: '',
-          checkPsd: ''
+          password: '',
+          checkPassword: ''
         },
         verifyRegister: {
           mailNum: [
-            { validator: checkmailNum, trigger: 'blur' }
+            { validator: checkMailNum, trigger: 'blur' }
           ],
-          psd: [
-            { validator: checkpsd, trigger: 'blur' }
+          password: [
+            { validator: checkPassword, trigger: 'blur' }
           ],
-          checkPsd: [
-            { validator: checkpsd2, trigger: 'blur' }
+          checkPassword: [
+            { validator: checkVerifyPassword, trigger: 'blur' }
           ]
         }
-      },
-      methods: {
-        submitForm(formName) {
-          this.$refs[formName].validate((valid) =>{
-            if (valid) {
-              const { mailNum, psd, checkPsd} = this.ruleFormRegister
-
+      }
+    },
+    methods: {
+      submitForm (formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (valid) {
+            const opt = this.ruleFormRegister
+            let data = await api.userRegister(opt)
+            if (data.success) {
+              Message.success('Register successful')
+              this.$router.push('./login')
+            } else {
+              Message.error('Register error')
             }
-          })
-        }
+          } else {
+            Message.error('submit error')
+            return false
+          }
+        })
       }
     }
   }

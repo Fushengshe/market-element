@@ -3,10 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from './axios'
+import store from './store/index'
 import 'babel-polyfill'
 // import { routerMode } from './config/env'
 // import store from './store'
 // import './config/rem'
+
 import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)
@@ -40,7 +43,8 @@ Vue.prototype.$message = Message
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
+  axios,
   template: '<App/>',
   components: {App}
 })
