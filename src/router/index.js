@@ -7,25 +7,16 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'register',
+      name: 'index',
       component (resolve) {
-        require.ensure(['@/pages/register.vue'], () => {
-          resolve(require('@/pages/register.vue'))
+        require.ensure(['@/pages/index.vue'], () => {
+          resolve(require('@/pages/index.vue'))
         })
       }
     },
-    // {
-    //   path: '/',
-    //   name: 'index',
-    //   component (resolve) {
-    //     require.ensure(['@/pages/index.vue'], () => {
-    //       resolve(require('@/pages/index.vue'))
-    //     })
-    //   }
-    // },
     {
       path: '/hello',
-      name: 'Hello',
+      name: 'hello',
       component (resolve) {
         require.ensure(['@/components/Hello.vue'], () => {
           resolve(require('@/components/Hello.vue'))
@@ -42,6 +33,47 @@ const router = new Router({
       }
     },
     {
+      path: '/index',
+      name: 'client',
+      meta: {
+        requireAuth: true
+      },
+      component (resolve) {
+        require.ensure(['@/pages/home/index.vue'], () => {
+          resolve(require('@/pages/home/index.vue'))
+        })
+      },
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component (resolve) {
+            require.ensure(['@/pages/home/home.vue'], () => {
+              resolve(require('@/pages/home/home.vue'))
+            })
+          }
+        },
+        {
+          path: 'card',
+          name: 'card',
+          component (resolve) {
+            require.ensure(['@/pages/home/card.vue'], () => {
+              resolve(require('@/pages/home/card.vue'))
+            })
+          }
+        },
+        {
+          path: 'cart',
+          name: 'cart',
+          component (resolve) {
+            require.ensure(['@/pages/home/cart.vue'], () => {
+              resolve(require('@/pages/home/cart.vue'))
+            })
+          }
+        }
+      ]
+    },
+    {
       path: '/login',
       name: 'login',
       component (resolve) {
@@ -49,16 +81,25 @@ const router = new Router({
           resolve(require('@/pages/login.vue'))
         })
       }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component (resolve) {
+        require.ensure(['@/pages/register.vue'], () => {
+          resolve(require('@/pages/register.vue'))
+        })
+      }
+    },
+    {
+      path: '*',
+      name: 'not-found',
+      component (resolve) {
+        require.ensure(['@/pages/404.vue'], () => {
+          resolve(require('@/pages/404.vue'))
+        })
+      }
     }
-    // {
-    //   path: '/register',
-    //   name: 'register',
-    //   component (resolve) {
-    //     require.ensure(['@/pages/register.vue'], () => {
-    //       resolve(require('@/pages/register.vue'))
-    //     })
-    //   }
-    // }
   ]
 })
 
