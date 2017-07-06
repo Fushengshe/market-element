@@ -8,7 +8,7 @@
     <div class = "main">
       <h3 class = "register-title">注 册</h3>
 
-      <el-form class = "register-form" :model="ruleFormRegister" :rules = "verifyRegister" ref="registerValidateForm">
+      <el-form class = "register-form" :model="ruleFormRegister" :rules = "verifyRegister" ref="ruleFormRegister">
          <el-form-item label="邮箱/手机号" prop = "mailNum">
           <el-input v-model="ruleFormRegister.mailNum" placeholder="请输入邮箱/手机号"></el-input>
          </el-form-item>
@@ -85,13 +85,13 @@
             const opt = this.ruleFormRegister
             let data = await api.userRegister(opt)
             if (data.success) {
-              Message.success('Register successful')
+              Message.success('注册成功！！')
               this.$router.push('./login')
             } else {
-              Message.error('Register error')
+              Message.error('账号已存在！！')
             }
           } else {
-            Message.error('submit error')
+            Message.error('请正确填写内容！！')
             return false
           }
         })

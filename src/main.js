@@ -6,7 +6,7 @@ import router from './router'
 import axios from './axios'
 import store from './store/index'
 import 'babel-polyfill'
-// import store from './store'
+
 import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)

@@ -12,37 +12,8 @@ const router = new Router({
         require.ensure(['@/pages/home/index.vue'], () => {
           resolve(require('@/pages/home/index.vue'))
         })
-      }
-    },
-    {
-      path: '/hello',
-      name: 'hello',
-      component (resolve) {
-        require.ensure(['@/components/Hello.vue'], () => {
-          resolve(require('@/components/Hello.vue'))
-        })
-      }
-    },
-    {
-      path: '/components',
-      name: 'components',
-      component (resolve) {
-        require.ensure(['@/components/components.vue'], () => {
-          resolve(require('@/components/components.vue'))
-        })
-      }
-    },
-    {
-      path: '/index',
-      name: 'client',
-      meta: {
-        requireAuth: true
       },
-      component (resolve) {
-        require.ensure(['@/pages/home/index.vue'], () => {
-          resolve(require('@/pages/home/index.vue'))
-        })
-      },
+      redirect: 'home',
       children: [
         {
           path: 'home',
@@ -54,15 +25,6 @@ const router = new Router({
           }
         },
         {
-          path: 'card',
-          name: 'card',
-          component (resolve) {
-            require.ensure(['@/pages/home/card.vue'], () => {
-              resolve(require('@/pages/home/card.vue'))
-            })
-          }
-        },
-        {
           path: 'cart',
           name: 'cart',
           component (resolve) {
@@ -70,8 +32,40 @@ const router = new Router({
               resolve(require('@/pages/home/cart.vue'))
             })
           }
+        },
+        {
+          path: 'me',
+          name: 'me',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/me.vue'], () => {
+              resolve(require('@/pages/home/mine/me.vue'))
+            })
+          },
+          children: [
+            {
+              path: 'card',
+              name: 'card',
+              component (resolve) {
+                require.ensure(['@/pages/home/mine/card.vue'], () => {
+                  resolve(require('@/pages/home/mine/card.vue'))
+                })
+              }
+            }
+          ]
         }
       ]
+    },
+    {
+      path: '/hello',
+      name: 'hello',
+      component (resolve) {
+        require.ensure(['@/components/Hello.vue'], () => {
+          resolve(require('@/components/Hello.vue'))
+        })
+      },
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/login',

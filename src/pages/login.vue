@@ -9,17 +9,17 @@
       <h3 class = "login-title">登 录</h3>
       <img src="http://temp.im/80x80" class = "avatar" alt = "your avatar"/>
 
-      <el-form class = "login-form" :model = "ruleFormLogin" :rules = "verifyFormLogin">
+      <el-form class = "login-form" :model = "ruleFormLogin" :rules = "verifyFormLogin" ref = "ruleFormLogin">
          <el-form-item label="邮箱/手机号" prop = "mailNum">
           <el-input :model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>
          </el-form-item>
 
-         <el-form-item label="密码" class = "form-psd" prop = "psd">
-          <el-input :model= "ruleFormLogin.psd" placeholder="请输入密码"></el-input>
+         <el-form-item label="密码" class = "form-password" prop = "password">
+          <el-input :model= "ruleFormLogin.password" placeholder="请输入密码"></el-input>
          </el-form-item>
       </el-form>
       <router-link to = "#" class = "forget">忘记密码</router-link>
-      <el-button type="primary" class = "login-btn">登 录</el-button>
+      <el-button type="primary" class = "login-btn" @click = "submitForm('ruleFormLogin')">登 录</el-button>
       <router-link to = "register" class = "register">还没有账号？</router-link>
 
       <router-link to = "register" class = "issue">登录时遇到问题？</router-link>
@@ -29,17 +29,19 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import api from '../config/api'
+  import { Message } from 'element-ui'
   export default {
     name: 'login',
     data () {
-      let checkmailNum = (rule, value, callback) => {
+      let checkMailNum = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('用户名不能为空'))
         } else {
           callback()
         }
       }
-      let checkpsd = (rule, value, callback) => {
+      let checkPassword = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('密码不能为空'))
         } else {
@@ -49,16 +51,41 @@
       return {
         ruleFormLogin: {
           mailNum: '',
-          psd: ''
+          password: ''
         },
         verifyFormLogin: {
-          mailNum: [
-            { validator: checkmailNum, trigger: 'blur' }
+          checkmailNum: [
+            { validator: checkMailNum, trigger: 'blur' }
           ],
-          psd: [
-            { validator: checkpsd, trigger: 'blur' }
+          checkPassword: [
+            { validator: checkPassword, trigger: 'blur' }
           ]
         }
+      }
+    },
+    methods: {
+      submitForm (formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (valid) {
+            const opt = this.ruleFormLogin
+            let data = await api.userLogin(opt)
+            if (!data.info) {
+              Message.error('账号不存在！！')
+            } else if (data.success) {
+              Message.success('登录成功！！')
+              this.$store.dispatch('UserLogin', data.token)
+              this.$store.dispatch('UserName', data.mailNum)
+              let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+              this.$router.push({
+                path: redirect
+              })
+            } else {
+              Message.error('密码错误！！')
+            }
+          } else {
+            Message.error('请正确填写表单！！')
+          }
+        })
       }
     }
   }
@@ -101,7 +128,7 @@
   width: 75%;
 }
 
-.form-psd{
+.form-password{
   margin:0;
 }
 
