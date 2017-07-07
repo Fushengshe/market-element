@@ -7,13 +7,31 @@ import axios from './axios'
 import store from './store/index'
 import 'babel-polyfill'
 
-import {Button, Select, Form, FormItem, Input, MessageBox, Message, Loading, Notification} from 'element-ui'
+import {
+  Button,
+  Select,
+  Form,
+  FormItem,
+  Input,
+  MessageBox,
+  OptionGroup,
+  Option,
+  Message,
+  Carousel,
+  CarouselItem,
+  Loading,
+  Notification
+} from 'element-ui'
 Vue.config.productionTip = false
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 Vue.use(Input)
+Vue.use(OptionGroup)
+Vue.use(Option)
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert

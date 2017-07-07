@@ -4,13 +4,12 @@
       <h1 class="title">乐 易 购</h1>
       <h2 class="slogan">XXXXXXXXXXX</h2>
     </div>
-
     <div class="main">
       <h3 class="login-title">登 录</h3>
       <img src="http://temp.im/80x80" class="avatar" alt="your avatar" />
-
       <el-form class="login-form" :model="ruleFormLogin" :rules="verifyFormLogin">
-        <el-form-item label="邮箱/手机号" prop="mailNum">
+        <el-form-item label="邮箱/手机号" prop="mailNum"></el-form-item>
+      </el-form>
       <el-form class = "login-form" :model = "ruleFormLogin" :rules = "verifyFormLogin" ref = "ruleFormLogin">
          <el-form-item label="邮箱/手机号" prop = "mailNum">
           <el-input :model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>
@@ -29,7 +28,6 @@
       <router-link to = "#" class = "forget">忘记密码</router-link>
       <el-button type="primary" class = "login-btn" @click = "submitForm('ruleFormLogin')">登 录</el-button>
       <router-link to = "register" class = "register">还没有账号？</router-link>
-
       <router-link to="register" class="issue">登录时遇到问题？</router-link>
     </div>
   </div>
