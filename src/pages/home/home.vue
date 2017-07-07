@@ -85,8 +85,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .home {
-    width 90vw
     margin 0 auto
+    width 90vw
     .top-bar {
       display flex
       justify-content space-between
@@ -104,9 +104,9 @@
       margin-top 15px
     }
     .ad{
+      margin 0.5em auto
       width 100%
       height 16vh
-      margin 0.5em auto
       border 1px solid #555
       border-radius 5px
     }
