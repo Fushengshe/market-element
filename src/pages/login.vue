@@ -11,8 +11,6 @@
 
       <el-form class="login-form" :model="ruleFormLogin" :rules="verifyFormLogin">
         <el-form-item label="邮箱/手机号" prop="mailNum">
-      <el-form class = "login-form" :model = "ruleFormLogin" :rules = "verifyFormLogin" ref = "ruleFormLogin">
-         <el-form-item label="邮箱/手机号" prop = "mailNum">
           <el-input :model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>
         </el-form-item>
 
