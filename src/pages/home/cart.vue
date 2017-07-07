@@ -1,7 +1,9 @@
 <template>
   <div class="cart">
     <h3 class="top-bar">购物车</h3>
-    <cart-item class="cart-item"></cart-item>
+    <div class="cart-item-wrapper">
+    <cart-item></cart-item>
+    </div>
   </div>
 </template>
 
@@ -28,9 +30,9 @@
       text-align left
       border-bottom 3px solid #555
     }
-    .cart-item{
-      width 90%
-      margin 0 auto
+    .cart-item-wrapper{
+      width 95%
+      margin 15px auto
     }
   }
 </style>
