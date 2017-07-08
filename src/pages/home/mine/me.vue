@@ -13,15 +13,12 @@
     </div>
 
     <div class = "selects">
-      <el-row :gutter="20" v-for="(o, index) in 2" :key="o">
-        <el-col :span="8">
-          <div class="grid-content bg-purple"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple"></div>
+      <el-row :gutter="20" v-for="(item, o) in items" :key="o">
+        <el-col :span="8" v-for="(i, p) in item.item" :key="p">
+          <div class="grid-content bg-purple">
+            <img src="http://temp.im/45x45" alt="me-icon" class = "me-icon"/>
+            {{ i.i }}
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -38,7 +35,18 @@
     name: 'me',
     data () {
       return {
-
+        items: [
+          {item: [
+            {i: '我的订单'},
+            {i: '我的收藏'},
+            {i: '我的足迹'}
+          ]},
+          {item: [
+            {i: '我的卡券'},
+            {i: '设置'},
+            {i: '关于'}
+          ]}
+        ]
       }
     },
     components: {
@@ -52,7 +60,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .header{
     height 3rem
-    width 100%
+    width calc(100% - 1rem)
     padding 0.5rem
     margin-bottom 1.3rem
     .avatar{
@@ -63,7 +71,7 @@
       float left
     }
     .header-main{
-      width calc(100% - 7.6rem)
+      width calc(100% - 6.6rem)
       margin-top 0.3rem
       padding-bottom 0.3rem
       border-bottom 1px solid #222
@@ -110,16 +118,22 @@
           background #e5e9f2
         }
         .grid-content {
+          font-size 13px
+          text-align center
+          padding 0.5rem 0 0.5rem 0
           border-radius 4px
-          min-height 36px
           width 100%
           overflow hidden
+          .me-icon{
+            display block
+            margin 0.4rem auto
+          }
         }
-        .grid-content:after{
+        /*.grid-content:after{  自适应正方形
           content ''
           display block
           margin-top 100%
-        }
+        }*/
       }
     }
   }
