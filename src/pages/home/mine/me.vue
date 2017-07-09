@@ -13,12 +13,14 @@
     </div>
 
     <div class = "selects">
-      <el-row :gutter="20" v-for="(item, o) in items" :key="o">
-        <el-col :span="8" v-for="(i, p) in item.item" :key="p">
-          <div class="grid-content bg-purple">
-            <img src="http://temp.im/45x45" alt="me-icon" class = "me-icon"/>
-            {{ i.i }}
-          </div>
+      <el-row :gutter="20" v-for="(item, key) in items" :key="key">
+        <el-col :span="8" v-for="(i, key) in item.item" :key="key">
+          <router-link :to="{ path: i.i[1].router }" class = "router">
+            <div class="grid-content bg-purple">
+              <img src="http://temp.im/45x45" alt="me-icon" class = "me-icon"/>
+              {{ i.i[0].id }}
+            </div>
+          </router-link>
         </el-col>
       </el-row>
     </div>
@@ -36,15 +38,15 @@
     data () {
       return {
         items: [
-          {item: [
-            {i: '我的订单'},
-            {i: '我的收藏'},
-            {i: '我的足迹'}
+          { item: [
+            {i: [{id: '我的订单'}, {router: '/order'}]},
+            {i: [{id: '我的收藏'}, {router: '/collection'}]},
+            {i: [{id: '我的足迹'}, {router: '/history'}]}
           ]},
-          {item: [
-            {i: '我的卡券'},
-            {i: '设置'},
-            {i: '关于'}
+          { item: [
+            {i: [{id: '我的卡券'}, {router: '/card'}]},
+            {i: [{id: '设置'}, {router: '/setting'}]},
+            {i: [{id: '关于'}, {router: '/about'}]}
           ]}
         ]
       }
@@ -108,6 +110,10 @@
       }
       .el-col {
         border-radius 4px
+        .router{
+          text-decoration none
+          color #000
+        }
         .bg-purple-dark {
           background #99a9bf
         }

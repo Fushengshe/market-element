@@ -40,18 +40,61 @@ const router = new Router({
             require.ensure(['@/pages/home/mine/me.vue'], () => {
               resolve(require('@/pages/home/mine/me.vue'))
             })
-          },
-          children: [
-            {
-              path: 'card',
-              name: 'card',
-              component (resolve) {
-                require.ensure(['@/pages/home/mine/card.vue'], () => {
-                  resolve(require('@/pages/home/mine/card.vue'))
-                })
-              }
-            }
-          ]
+          }
+        },
+        {
+          path: 'order',
+          name: 'order',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/order.vue'], () => {
+              resolve(require('@/pages/home/mine/order.vue'))
+            })
+          }
+        },
+        {
+          path: 'collection',
+          name: 'collection',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/collection.vue'], () => {
+              resolve(require('@/pages/home/mine/collection.vue'))
+            })
+          }
+        },
+        {
+          path: 'history',
+          name: 'history',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/history.vue'], () => {
+              resolve(require('@/pages/home/mine/history.vue'))
+            })
+          }
+        },
+        {
+          path: 'card',
+          name: 'card',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/card.vue'], () => {
+              resolve(require('@/pages/home/mine/card.vue'))
+            })
+          }
+        },
+        {
+          path: 'setting',
+          name: 'setting',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/setting.vue'], () => {
+              resolve(require('@/pages/home/mine/setting.vue'))
+            })
+          }
+        },
+        {
+          path: 'about',
+          name: 'about',
+          component (resolve) {
+            require.ensure(['@/pages/home/mine/about.vue'], () => {
+              resolve(require('@/pages/home/mine/about.vue'))
+            })
+          }
         }
       ]
     },
