@@ -4,11 +4,11 @@
       <img class="item-image" src="./gakki.jpg" alt="">
     </div>
     <div class="cart-item-info">
-      <h5 class="info-title">商品名称：{{cart.title}}</h5>
+      <div class="info-title">商品名称：{{cart.title}}</div>
       <div class="info-type">具体型号：{{cart.type}}</div>
       <div class="info-store">店铺名称：{{cart.store}}</div>
       <div class="info-money">
-        <h5 class="info-price">单价：{{cart.price}}</h5>
+        <div class="info-price">单价：{{cart.price}}</div>
         <div class="info-count">{{cart.count}}数量</div>
       </div>
     </div>
@@ -35,9 +35,13 @@
   .cart-item {
     display flex
     justify-content space-between
+    box-sizing border-box
+    padding 0.3em 0.6em
     border 1px solid #555
     border-radius 5px
     .cart-item-img {
+      display flex
+      align-items center
       flex 0 0 35%
       width 35%
       .item-image {
@@ -47,8 +51,28 @@
     .cart-item-info {
       flex 0 0 60%
       width 60%
+      font-size 0.8em
       .info-title, .info-price {
         margin 0
+      }
+      .info-title{
+        font-size 1.05em
+        font-weight 600
+      }
+      .info-money {
+        display flex
+        font-size 0.8em
+        font-weight 600
+        .info-price {
+          flex 1
+          width 50%
+          text-align left
+        }
+        .info-count {
+          flex 1
+          width 50%
+          text-align right
+        }
       }
     }
   }
