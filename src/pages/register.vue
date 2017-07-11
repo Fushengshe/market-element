@@ -132,6 +132,10 @@
     width: 75%;
   }
 
+  .form-password{
+    margin-bottom: 1rem;
+  }
+
   .register-btn {
     display: block;
     margin: 5vh auto 3vh auto;

@@ -7,16 +7,13 @@
 
     <div class="main">
       <h3 class="login-title">登 录</h3>
-      <img src="http://temp.im/80x80" class="avatar" alt="your avatar" />
+      <img src="http://temp.im/80x80" class="avatar" alt="your_avatar" />
 
       <el-form class="login-form" :model="ruleFormLogin" :rules="verifyFormLogin">
         <el-form-item label="邮箱/手机号" prop="mailNum">
           <el-input :model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>
         </el-form-item>
 
-        <el-form-item label="密码" class="form-psd" prop="psd">
-          <el-input :model="ruleFormLogin.psd" placeholder="请输入密码"></el-input>
-        </el-form-item>
          <el-form-item label="密码" class = "form-password" prop = "password">
           <el-input :model= "ruleFormLogin.password" placeholder="请输入密码"></el-input>
          </el-form-item>
@@ -24,10 +21,6 @@
       <router-link to="#" class="forget">忘记密码</router-link>
       <el-button type="primary" class="login-btn">登 录</el-button>
       <router-link to="register" class="register">还没有账号？</router-link>
-      <router-link to = "#" class = "forget">忘记密码</router-link>
-      <el-button type="primary" class = "login-btn" @click = "submitForm('ruleFormLogin')">登 录</el-button>
-      <router-link to = "register" class = "register">还没有账号？</router-link>
-
       <router-link to="register" class="issue">登录时遇到问题？</router-link>
     </div>
   </div>
@@ -105,6 +98,7 @@
   .logo {
     height: 21vh;
     padding-top: 6vh;
+    text-align: center;
   }
 
   .title {

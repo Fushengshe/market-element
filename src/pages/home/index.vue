@@ -39,7 +39,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .index{
-    padding-bottom 7vh
+    padding-bottom 3.7rem
     .nav {
       height 7vh
       width 100%
