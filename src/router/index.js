@@ -99,6 +99,15 @@ const router = new Router({
       ]
     },
     {
+      path: '/store',
+      name: 'store',
+      component (resolve) {
+        require.ensure(['@/pages/store/store.vue'], () => {
+          resolve(require('@/pages/store/store.vue'))
+        })
+      }
+    },
+    {
       path: '/hello',
       name: 'hello',
       component (resolve) {

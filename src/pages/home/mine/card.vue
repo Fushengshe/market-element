@@ -5,36 +5,47 @@
         <img src="../../../assets/search.png" alt="search" class="search"/>
       </span>
 
-      <el-dialog title="输入店铺名搜索卡券" :visible.sync="dialogVisible" size="full" :before-close="handleClose">
-        <el-input placeholder="请输入店铺名" icon="search" v-model="searchInput" :on-icon-click="handleIconClick"></el-input>
-        <div class="card">
-          <h2>店铺名称：{{ card[0].name }}</h2>
-          <p>面值：{{ card[0].denomination }}</p>
-        </div>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogVisible = false">返 回</el-button>
-        </span>
-      </el-dialog>
-
       <div class="header-main">
         <p class="name">我的卡券</p>
       </div>
 
       <span class="sorting-menu" v-clickOutside="closeEvent">
-        <img src="../../../assets/sort.png" alt="sorting" class="sorting-btn" @click="handleDisplay()"/>
+        <img src="../../../assets/sort.png" alt="sorting" class="sorting-btn" @click="handleMenuDisplay()"/>
 
-        <div class="menu-warpper" v-if="display">
+        <div class="menu-warpper" v-if="menuVisible">
           <p class="menu-text" @click="sortByFirstLetter()">按店铺首字母排序</p>
           <p class="menu-text" @click="sortByDenomination()">按面额排序</p>
         </div>
       </span>
     </div>
 
+    <div class = "search-panel">
+      <el-dialog title="输入店铺名搜索卡券" :visible.sync="dialogVisible" size="large" :before-close="handleClose">
+        <el-input class = "search-input" placeholder="请输入店铺名" icon="search" v-model="searchInput" :on-icon-click="handleIconClick"></el-input>
+
+        <div class="card" v-if="searchCardVisible">
+          <h2>店铺名称：{{ card[id].name }}</h2>
+          <p>面值：{{ card[id].denomination }}</p>
+          <router-link to="store">
+            <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+          </router-link>
+        </div>
+
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false">返 回</el-button>
+        </span>
+      </el-dialog>
+    </div>
+
+
     <div class="dotted-line-top"></div>
 
     <div class="card">
       <h2>店铺名称：{{ card[0].name }}</h2>
       <p>面值：{{ card[0].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
 
     <div class="dotted-line"></div>
@@ -42,6 +53,9 @@
     <div class="card">
       <h2>店铺名称：{{ card[1].name }}</h2>
       <p>面值：{{ card[1].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
 
     <div class="dotted-line"></div>
@@ -49,6 +63,9 @@
     <div class="card">
       <h2>店铺名称：{{ card[2].name }}</h2>
       <p>面值：{{ card[2].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
 
     <div class="dotted-line"></div>
@@ -56,6 +73,9 @@
     <div class="card">
       <h2>店铺名称：{{ card[3].name }}</h2>
       <p>面值：{{ card[3].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
 
     <div class="dotted-line"></div>
@@ -63,6 +83,9 @@
     <div class="card">
       <h2>店铺名称：{{ card[4].name }}</h2>
       <p>面值：{{ card[4].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
 
     <div class="dotted-line"></div>
@@ -70,18 +93,23 @@
     <div class="card">
       <h2>店铺名称：{{ card[5].name }}</h2>
       <p>面值：{{ card[5].denomination }}</p>
+      <router-link to="store">
+        <el-button type="primary" class = "to-store-button">前往店铺</el-button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { Dialog, Input } from 'element-ui'
+  import { Dialog, Input, Button } from 'element-ui'
   export default {
     name: 'card',
     data () {
       return {
-        display: false,
+        menuVisible: false,
+        searchCardVisible: false,
         dialogVisible: false,
+        id: 0,
         searchInput: '',
         chineseName: [],
         card: [
@@ -120,7 +148,8 @@
     },
     components: {
       'el-dialog': Dialog,
-      'el-input': Input
+      'el-input': Input,
+      'el-button': Button
     },
     directives: {
       clickOutside: {
@@ -157,26 +186,41 @@
       }
     },
     methods: {
-      handleDisplay () {
-        this.display = !this.display
-        console.log(this.display)
-      },
-      handleClose (done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done()
-          })
-          .catch(_ => {})
+      handleMenuDisplay () {
+        this.menuVisible = !this.menuVisible
+        console.log(this.menuVisible)
       },
       hide () {
-        this.display = false
+        this.menuVisible = false
       },
       closeEvent () {
         console.log('close event called')
         this.hide()
       },
       handleIconClick (ev) {
-        console.log(ev)
+        if (!this.searchInput) {
+          this.$message.error('请输入店铺名称！')
+          return
+        }
+        let storeName = this.searchInput
+        let len = this.card.length
+        let flag = -1
+
+        for (let i = 0; i < len; i++) {
+          if (this.card[i].name === storeName) {
+            flag = i
+          }
+        }
+
+        if (flag !== -1) {
+          this.id = flag
+          this.searchCardVisible = true
+        }
+      },
+      handleClose (done) {
+        this.searchCardVisible = false
+        this.searchInput = ''
+        done()
       },
       sortByFirstLetter () {
         let chineseReg = /^[\u4e00-\u9fa5]{0,}$/
@@ -287,6 +331,12 @@
       }
     }
 
+    .search-panel{
+      .search-input{
+        margin-bottom 2.5rem
+      }
+    }
+
     .dotted-line-top {
       width 50%
       height 4rem
@@ -302,6 +352,11 @@
       margin 0 auto
       border 1px solid #222
       border-radius 12px
+      .to-store-button{
+        float right
+        margin -1rem 1.5rem
+        // 这里为什么要是负值没搞懂
+      }
     }
 
     .dotted-line {
