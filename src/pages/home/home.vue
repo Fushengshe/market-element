@@ -1,9 +1,22 @@
 <template>
   <div class="home">
     <div class = "header">
-      <span class = "city">秦皇岛</span>
+      <span class = "city" @click="dialogVisible = true">
+        {{ selectedCity }}
+      </span>
       <el-input placeholder="" icon="search" class = "search" v-model="search" :on-icon-click="handleIconClick"> </el-input>
     </div>
+
+
+    <el-dialog title="选择你的城市" :visible.sync="dialogVisible" size="large">
+      <el-cascader size="large" :options="options" v-model="selectedOptions" @change="handleChange"></el-cascader>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="selectCity">确 定</el-button>
+      </span>
+    </el-dialog>
+
+
 
     <!-- <div class = "carousel">      需求错误，不要轮播，先留一下
       <el-carousel :interval="4000" type="card" height="12rem">
@@ -20,6 +33,7 @@
         </el-col>
       </el-row>
     </div>
+
 
     <div class = "card-items"  v-for="(o, index) in 2" :key="o">
       <div class = "card-item">
@@ -39,26 +53,41 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {Row, Col, Card} from 'element-ui'
+  import {Row, Col, Card, Dialog, Cascader} from 'element-ui'
+  import { regionData, CodeToText } from 'element-china-area-data'
   export default {
     name: 'home',
     data () {
       return {
         search: '',
         currentDate: new Date(),
-        index: 0
+        index: 0,
+        dialogVisible: false,
+        city: '',
+        selectedCity: '北京市',
+        options: regionData,
+        selectedOptions: []
       }
     },
     components: {
       'el-row': Row,
       'el-col': Col,
-      'el-card': Card
+      'el-card': Card,
+      'el-dialog': Dialog,
+      'el-cascader': Cascader
       // 'el-carousel': Carousel,
       // 'el-carousel-item': CarouselItem
     },
     methods: {
       handleIconClick (ev) {
         console.log(ev)
+      },
+      selectCity () {
+        this.dialogVisible = false
+        this.selectedCity = this.city
+      },
+      handleChange (value) {
+        this.city = CodeToText[value[2]]
       }
     }
   }
@@ -151,5 +180,4 @@
       }
     }
   }
-
 </style>
