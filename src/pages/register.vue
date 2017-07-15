@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
   import api from '../config/api'
-  import { Message } from 'element-ui'
+  import {Message} from 'element-ui'
   export default {
     name: 'register',
     data () {
@@ -64,6 +64,7 @@
           password: '',
           checkPassword: ''
         },
+        ERR_OK: 0,
         verifyRegister: {
           mailNum: [
             {validator: checkMailNum, trigger: 'blur'}
@@ -82,13 +83,14 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             const opt = this.ruleFormRegister
-            let data = await api.userRegister(opt)
-            if (data.success) {
-              Message.success('Register successful')
-              this.$router.push('./login')
-            } else {
-              Message.error('Register error')
-            }
+            api.userRegister(opt).then(({data}) => {
+              if (data.code === this.ERR_OK) {
+                Message.success('Register successful')
+                this.$router.push('./login')
+              } else {
+                Message.error('Register error')
+              }
+            })
           } else {
             Message.error('submit error')
             return false
@@ -103,6 +105,7 @@
 <style>
   #register {
     height: 100%;
+    text-align: center;
   }
 
   .logo {
@@ -132,7 +135,7 @@
     width: 75%;
   }
 
-  .form-password{
+  .form-password {
     margin-bottom: 1rem;
   }
 
