@@ -9,5 +9,8 @@ export default {
   },
   userLogin (data) {
     return instance.post('/login', data)
+  },
+  getProducts (data) {
+    return instance.get('/data/cartData.json', data)
   }
 }

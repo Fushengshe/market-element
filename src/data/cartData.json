@@ -1,0 +1,71 @@
+{
+  "result": {
+    "totalMoney": 4529,
+    "list": [
+      {
+        "store": {
+          "storeName": "小米旗舰店",
+          "products": [
+            {
+              "productId": 1001,
+              "productName": "小米6",
+              "productPrice": 2499,
+              "productQuantity": 1,
+              "productImage": "image/goods-1.jpg",
+              "parts": [
+                {
+                  "partsId": 1001001,
+                  "partsName": "限购1件"
+                },
+                {
+                  "partsId": 1001002,
+                  "partsName": "赠送手机壳"
+                }
+              ]
+            },
+            {
+              "productId": 1002,
+              "productName": "扫地机器人",
+              "productPrice": 2000,
+              "productQuantity": 1,
+              "productImage": "image/goods-2.jpg",
+              "parts": [
+                {
+                  "partsId": 1002001,
+                  "partsName": "赠送桌子"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "store": {
+          "storeName": "三只松鼠",
+          "products": [
+            {
+              "productId": 1003,
+              "productName": "腰果",
+              "productPrice": 10,
+              "productQuantity": 1,
+              "productImage": "image/goods-3.jpg"
+            },
+            {
+              "productId": 1004,
+              "productName": "夏威夷果",
+              "productPrice": 20,
+              "productQuantity": 1,
+              "productImage": "image/goods-4.jpg",
+              "parts": [
+                {
+                  "partsId": 1004001,
+                  "partsName": "送撬片"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

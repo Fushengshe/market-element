@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 实例化一个axios
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:3000/api',
+  baseURL: 'http://123.206.18.103/Market_BE/public/index.php/admin/auth',
   timeout: 5000
   // headers: {'X-Custom-Header': 'foobar'}
 })

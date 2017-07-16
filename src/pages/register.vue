@@ -8,6 +8,10 @@
     <div class="main">
       <h3 class="register-title">注 册</h3>
       <el-form class="register-form" :model="ruleFormRegister" :rules="verifyRegister" ref="ruleFormRegister">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleFormRegister.username" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+
         <el-form-item label="邮箱/手机号" prop="mailNum">
           <el-input v-model="ruleFormRegister.mailNum" placeholder="请输入邮箱/手机号"></el-input>
         </el-form-item>
@@ -32,12 +36,21 @@
 <script type="text/ecmascript-6">
   import api from '../config/api'
   import {Message} from 'element-ui'
+  const ERR_OK = 0
+  const ERR_USER = 1
   export default {
     name: 'register',
     data () {
+      let checkUsername = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请填写用户名'))
+        } else {
+          callback()
+        }
+      }
       let checkMailNum = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('用户名不能为空'))
+          return callback(new Error('请填写手机或邮箱'))
         } else {
           callback()
         }
@@ -60,12 +73,15 @@
       }
       return {
         ruleFormRegister: {
+          username: '',
           mailNum: '',
           password: '',
           checkPassword: ''
         },
-        ERR_OK: 0,
         verifyRegister: {
+          username: [
+            {validator: checkUsername, trigger: 'blur'}
+          ],
           mailNum: [
             {validator: checkMailNum, trigger: 'blur'}
           ],
@@ -82,11 +98,19 @@
       submitForm (formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            const opt = this.ruleFormRegister
+            const opt = {
+              // FIXME:有时间修改一下表单字段，这便那就不用重新取名了
+              username: this.ruleFormRegister.username,
+              password: this.ruleFormRegister.password,
+              confirm: this.ruleFormRegister.checkPassword,
+              mobile: this.ruleFormRegister.mailNum
+            }
             api.userRegister(opt).then(({data}) => {
-              if (data.code === this.ERR_OK) {
+              if (data.code === ERR_OK) {
                 Message.success('Register successful')
                 this.$router.push('./login')
+              } else if (data.code === ERR_USER) {
+                Message.error('用户名已存在')
               } else {
                 Message.error('Register error')
               }
@@ -109,8 +133,7 @@
   }
 
   .logo {
-    height: 21vh;
-    padding-top: 6vh;
+    height: 7.2rem;
   }
 
   .title {
@@ -122,7 +145,7 @@
   }
 
   .register-title {
-    margin-bottom: 4vh;
+    margin-bottom: 1rem;
   }
 
   .main {

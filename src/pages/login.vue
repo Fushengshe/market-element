@@ -9,15 +9,6 @@
       <h3 class="login-title">登 录</h3>
       <img src="http://temp.im/80x80" class="avatar" alt="your_avatar"/>
 
-      <!--<el-form class="login-form" :model="ruleFormLogin" :rules="verifyFormLogin" ref="ruleFormLogin">-->
-        <!--<el-form-item label="邮箱/手机号" prop="mailNum">-->
-          <!--<el-input :model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>-->
-        <!--</el-form-item>-->
-
-        <!--<el-form-item label="密码" class="form-password" prop="password">-->
-          <!--<el-input :model="ruleFormLogin.password" placeholder="请输入密码" type="password"></el-input>-->
-        <!--</el-form-item>-->
-      <!--</el-form>-->
       <el-form class="login-form" :model="ruleFormLogin" :rules="verifyFormLogin" ref="ruleFormLogin">
         <el-form-item label="邮箱/手机号" prop="mailNum">
           <el-input v-model="ruleFormLogin.mailNum" placeholder="请输入邮箱/手机号"></el-input>
@@ -39,7 +30,7 @@
   import api from '../config/api'
   import {Message} from 'element-ui'
   const ERR_OK = 0
-  const ERR_USER = 10001
+  const ERR_USER = 2
 //  const ERR_PASS = 10002
   export default {
     name: 'login',
@@ -75,17 +66,21 @@
     },
     methods: {
       submitForm (formName) {
-        console.log(this.ruleFormLogin)
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            const opt = this.ruleFormLogin
+            const opt = {
+              // FIXME:有时间修改一下表单字段，这便那就不用重新取名了
+              mobile: this.ruleFormLogin.mailNum,
+              password: this.ruleFormLogin.password
+            }
             api.userLogin(opt).then(({data}) => {
+              console.log(data)
               if (data.code === ERR_USER) {
                 Message.error('账号不存在！！')
-              } else if (data.data === ERR_OK) {
+              } else if (data.code === ERR_OK) {
                 Message.success('登录成功！！')
                 this.$store.dispatch('UserLogin', data.token)
-                this.$store.dispatch('UserName', data.mailNum)
+                this.$store.dispatch('UserName', data.data.user.username)
                 let redirect = decodeURIComponent(this.$route.query.redirect || '/')
                 this.$router.push({
                   path: redirect

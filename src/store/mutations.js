@@ -3,6 +3,7 @@ import * as types from './types'
 const mutations = {
   [types.LOGIN]: (state, data) => {
     localStorage.setItem('token', data)
+    localStorage.setItem('login', true)
     state.token = data
     state.login = true
   },

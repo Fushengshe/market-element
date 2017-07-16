@@ -1,23 +1,31 @@
 <template>
   <div class="me">
-    <div class = "header">
-      <span><img src = "http://temp.im/45x45" alt = "avatar" class = "avatar"/></span>
-      <div class = "header-main">
-        <p class = "name">Panos Panay</p>
+    <div class="header">
+      <span @click="dialogVisible = true"><img src="http://temp.im/45x45" alt="avatar" class="avatar"/></span>
+      <div class="header-main">
+        <p class="name">{{ this.$store.state.username }}</p>
       </div>
-      <span><img src = "../../../assets/message.png" alt = "message" class = "message"/></span>
+      <span><img src="../../../assets/message.png" alt="message" class="message"/></span>
+
+      <el-dialog title="更换头像" :visible.sync="dialogVisible" size="large">
+        <span>这是一段信息</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
 
-    <div class = "advertisement">
-      <img src = "http://temp.im/300x200" alt = "advertisement" class = "advertisement-img"/>
+    <div class="advertisement">
+      <img src="http://temp.im/300x200" alt="advertisement" class="advertisement-img"/>
     </div>
 
-    <div class = "selects">
+    <div class="selects">
       <el-row :gutter="20" v-for="(item, key) in items" :key="key">
         <el-col :span="8" v-for="(i, key) in item.item" :key="key">
-          <router-link :to="{ path: i.i[1].router }" class = "router">
+          <router-link :to="{ path: i.i[1].router }" class="router">
             <div class="grid-content bg-purple">
-              <img src="http://temp.im/45x45" alt="me-icon" class = "me-icon"/>
+              <img src="http://temp.im/45x45" alt="me-icon" class="me-icon"/>
               {{ i.i[0].id }}
             </div>
           </router-link>
@@ -25,54 +33,60 @@
       </el-row>
     </div>
 
-    <div class = "footer">
-      <p class = "slogan">2017 乐易购 Present</p>
+    <div class="footer">
+      <p class="slogan">2017 乐易购 Present</p>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { Row, Col } from 'element-ui'
+  import {Row, Col, Dialog} from 'element-ui'
   export default {
     name: 'me',
     data () {
       return {
+        dialogVisible: false,
         items: [
-          { item: [
-            {i: [{id: '我的订单'}, {router: '/order'}]},
-            {i: [{id: '我的收藏'}, {router: '/collection'}]},
-            {i: [{id: '我的足迹'}, {router: '/history'}]}
-          ]},
-          { item: [
-            {i: [{id: '我的卡券'}, {router: '/card'}]},
-            {i: [{id: '设置'}, {router: '/setting'}]},
-            {i: [{id: '关于'}, {router: '/about'}]}
-          ]}
+          {
+            item: [
+              {i: [{id: '我的订单'}, {router: '/order'}]},
+              {i: [{id: '我的收藏'}, {router: '/collection'}]},
+              {i: [{id: '我的足迹'}, {router: '/history'}]}
+            ]
+          },
+          {
+            item: [
+              {i: [{id: '我的卡券'}, {router: '/card'}]},
+              {i: [{id: '设置'}, {router: '/setting'}]},
+              {i: [{id: '关于'}, {router: '/about'}]}
+            ]
+          }
         ]
       }
     },
     components: {
       'el-row': Row,
-      'el-col': Col
+      'el-col': Col,
+      'el-dialog': Dialog
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .header{
+  .header {
     height 3rem
     width calc(100% - 1rem)
     padding 0.5rem
     margin-bottom 1.3rem
-    .avatar{
+    .avatar {
       width 2.8rem
       height 2.8rem
       margin-right 0.5rem
       border-radius 1.4rem
       float left
     }
-    .header-main{
+    .header-main {
       width calc(100% - 6.6rem)
       margin-top 0.3rem
       padding-bottom 0.3rem
@@ -80,11 +94,11 @@
       display inline-block
       text-align center
       float left
-      .name{
+      .name {
         margin 0 auto
       }
     }
-    .message{
+    .message {
       width 2.8rem
       height 2.8rem
       margin-left 0.5rem
@@ -92,15 +106,15 @@
     }
   }
 
-  .advertisement{
+  .advertisement {
     text-align center
     margin-bottom 2rem
-    .advertisement-img{
+    .advertisement-img {
       width 85%
     }
   }
 
-  .selects{
+  .selects {
     width 85%
     margin 0 auto
     .el-row {
@@ -110,7 +124,7 @@
       }
       .el-col {
         border-radius 4px
-        .router{
+        .router {
           text-decoration none
           color #000
         }
@@ -130,7 +144,7 @@
           border-radius 4px
           width 100%
           overflow hidden
-          .me-icon{
+          .me-icon {
             display block
             margin 0.4rem auto
           }
@@ -144,12 +158,12 @@
     }
   }
 
-  .footer{
+  .footer {
     width 100%
     text-align center
     position absolute
     bottom 8.5vh
-    .slogan{
+    .slogan {
       font-size 12px
       margin 0
     }

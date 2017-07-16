@@ -31,6 +31,9 @@ const router = new Router({
             require.ensure(['@/pages/home/cart.vue'], () => {
               resolve(require('@/pages/home/cart.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
@@ -49,6 +52,9 @@ const router = new Router({
             require.ensure(['@/pages/home/mine/order.vue'], () => {
               resolve(require('@/pages/home/mine/order.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
@@ -58,6 +64,9 @@ const router = new Router({
             require.ensure(['@/pages/home/mine/collection.vue'], () => {
               resolve(require('@/pages/home/mine/collection.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
@@ -67,6 +76,9 @@ const router = new Router({
             require.ensure(['@/pages/home/mine/history.vue'], () => {
               resolve(require('@/pages/home/mine/history.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
@@ -76,6 +88,9 @@ const router = new Router({
             require.ensure(['@/pages/home/mine/card.vue'], () => {
               resolve(require('@/pages/home/mine/card.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
