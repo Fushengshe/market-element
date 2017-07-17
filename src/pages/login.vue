@@ -69,7 +69,7 @@
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
             const opt = {
-              // FIXME:有时间修改一下表单字段，这便那就不用重新取名了
+              // FIXME:有时间修改一下表单字段，这边那就不用重新取名了
               mobile: this.ruleFormLogin.mailNum,
               password: this.ruleFormLogin.password
             }
@@ -81,7 +81,7 @@
                 Message.success('登录成功！！')
                 this.$store.dispatch('UserLogin', data.token)
                 this.$store.dispatch('UserName', data.data.user.username)
-                let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+                let redirect = decodeURIComponent(this.$route.query.redirect || '/index')
                 this.$router.push({
                   path: redirect
                 })

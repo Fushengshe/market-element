@@ -1,19 +1,146 @@
 <template>
   <div class="store">
-    <p>{{msg}}</p>
+    <div class="store-header">
+      <router-link to="/home">
+        <span class="back-home"><img src="../../assets/back.png" alt="back"></span>
+      </router-link>
+
+      <span class="store-name">{{ storeName }}</span>
+      <span class="search-in-store">
+        <el-input placeholder="店内搜索" icon="search" v-model="input" :on-icon-click="handleIconClick"></el-input>
+      </span>
+
+      <el-popover class="more-menu" ref="popover1" placement="bottom" width="80" trigger="click">
+        <ul class = "menu">
+          <li class="store-info">店铺信息</li>
+          <li class="store-contact">联系商家</li>
+          <li class="store-collection">收藏</li>
+          <li class="store-report">举报</li>
+        </ul>
+      </el-popover>
+      <span class="more" v-popover:popover1>
+        <img src="../../assets/menu.png" alt="more">
+      </span>
+    </div>
+
+    <div class = "curtain">
+      <div class = "store-avatar"><img src="http://temp.im/80x80" alt="store-avatar"></div>
+      <div class = "store-slogan">
+        <p>xxxxxxx</p>
+      </div>
+    </div>
+
+    <div class = "ticket-bar">
+      <div class = "store-resume">
+        商铺号：{{ storeId }} | {{ collected }}人收藏 <br />
+        店铺等级
+      </div>
+      <span class = "share"><img src="../../assets/share.png" alt="share"></span>
+      <router-link to="card" class = "to-ticket">
+        <div class = "ticket-text">优惠券</div>
+      </router-link>
+    </div>
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {Input, Popover} from 'element-ui'
   export default {
     name: 'store',
     data () {
       return {
-        msg: 'this is the store component!'
+        storeName: '滴滴',
+        storeId: '10001',
+        collected: '111',
+        input: ''
       }
+    },
+    methods: {
+      handleIconClick (ev) {
+        console.log(ev)
+      }
+    },
+    components: {
+      'el-input': Input,
+      'el-popover': Popover
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style lang="stylus" rel="stylesheet/stylus">
+  .store {
+    .store-header {
+      height 2.5rem
+      .back-home {
+        float left
+        margin 0.3rem 1.7rem 0 0.2rem
+      }
+      .store-name {
+        float left
+        height 2.5rem
+        line-height 3rem
+        margin-right 14%
+      }
+      .search-in-store {
+        width 40vw
+        float left
+        margin-top 0.2rem
+      }
+      .more {
+        float right
+        margin 0.2rem 0.5rem
+      }
+    }
+    .more-menu{
+      padding 0
+      .menu{
+        list-style none
+        font-size 15px
+      }
+    }
+    .curtain{
+      height 9.5rem
+      background-image url('http://temp.im/375x150')
+      position relative
+      .store-avatar{
+        width 4.8rem
+        height 4.8rem
+        border-radius 2.4rem
+        position absolute
+        bottom -2.4rem
+        left 1.5rem
+      }
+      .store-slogan{
+        position absolute
+        bottom 0.5rem
+        left 8.2rem
+        p{
+          margin 0
+        }
+      }
+    }
+    .ticket-bar{
+      height 5rem
+      padding-top 0.4rem
+      background red
+      .store-resume{
+        font-size 14px
+        margin-left 7rem
+      }
+      .share{
+        margin-top 1rem
+        margin-left 2rem
+      }
+      .to-ticket{
+        width 70%
+        float right
+        .ticket-text{
+          background blue
+          width 100%
+        }
+      }
+    }
+  }
+</style>

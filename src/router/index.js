@@ -7,6 +7,30 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'login',
+      component (resolve) {
+        require.ensure(['@/pages/login.vue'], () => {
+          resolve(require('@/pages/login.vue'))
+        })
+      },
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem('token')
+        if (to) {
+          if (token) {
+            next({
+              path: '/index',
+              query: {redirect: to.fullPath}
+            })
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/index',
       name: 'index',
       component (resolve) {
         require.ensure(['@/pages/home/index.vue'], () => {
@@ -16,7 +40,7 @@ const router = new Router({
       redirect: 'home',
       children: [
         {
-          path: 'home',
+          path: '/home',
           name: 'home',
           component (resolve) {
             require.ensure(['@/pages/home/home.vue'], () => {
@@ -25,7 +49,7 @@ const router = new Router({
           }
         },
         {
-          path: 'cart',
+          path: '/cart',
           name: 'cart',
           component (resolve) {
             require.ensure(['@/pages/home/cart.vue'], () => {
@@ -37,16 +61,19 @@ const router = new Router({
           }
         },
         {
-          path: 'me',
+          path: '/me',
           name: 'me',
           component (resolve) {
             require.ensure(['@/pages/home/mine/me.vue'], () => {
               resolve(require('@/pages/home/mine/me.vue'))
             })
+          },
+          meta: {
+            requireAuth: true
           }
         },
         {
-          path: 'order',
+          path: '/order',
           name: 'order',
           component (resolve) {
             require.ensure(['@/pages/home/mine/order.vue'], () => {
@@ -58,7 +85,7 @@ const router = new Router({
           }
         },
         {
-          path: 'collection',
+          path: '/collection',
           name: 'collection',
           component (resolve) {
             require.ensure(['@/pages/home/mine/collection.vue'], () => {
@@ -70,7 +97,7 @@ const router = new Router({
           }
         },
         {
-          path: 'history',
+          path: '/history',
           name: 'history',
           component (resolve) {
             require.ensure(['@/pages/home/mine/history.vue'], () => {
@@ -82,7 +109,7 @@ const router = new Router({
           }
         },
         {
-          path: 'card',
+          path: '/card',
           name: 'card',
           component (resolve) {
             require.ensure(['@/pages/home/mine/card.vue'], () => {
@@ -94,7 +121,7 @@ const router = new Router({
           }
         },
         {
-          path: 'setting',
+          path: '/setting',
           name: 'setting',
           component (resolve) {
             require.ensure(['@/pages/home/mine/setting.vue'], () => {
@@ -103,7 +130,7 @@ const router = new Router({
           }
         },
         {
-          path: 'about',
+          path: '/about',
           name: 'about',
           component (resolve) {
             require.ensure(['@/pages/home/mine/about.vue'], () => {
@@ -135,15 +162,6 @@ const router = new Router({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component (resolve) {
-        require.ensure(['@/pages/login.vue'], () => {
-          resolve(require('@/pages/login.vue'))
-        })
-      }
-    },
-    {
       path: '/register',
       name: 'register',
       component (resolve) {
@@ -172,7 +190,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: '/login',
+        path: '/',
         query: {redirect: to.fullPath}
       })
     }

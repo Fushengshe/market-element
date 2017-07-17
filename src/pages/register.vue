@@ -26,7 +26,7 @@
       </el-form>
 
       <el-button type="primary" class="register-btn" @click="submitForm('ruleFormRegister')">注 册</el-button>
-      <router-link to="login" class="login">已经有账号？</router-link>
+      <router-link to="/" class="login">已经有账号？</router-link>
 
       <router-link to="#" class="issue">登录时遇到问题？</router-link>
     </div>
