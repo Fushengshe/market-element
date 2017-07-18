@@ -26,7 +26,7 @@
     <div class = "curtain">
       <div class = "store-avatar"><img src="http://temp.im/80x80" alt="store-avatar"></div>
       <div class = "store-slogan">
-        <p>xxxxxxx</p>
+        <router-link to="/storeInfo"><p>xxxxxxx</p></router-link>
       </div>
     </div>
 
@@ -35,17 +35,39 @@
         商铺号：{{ storeId }} | {{ collected }}人收藏 <br />
         店铺等级
       </div>
-      <span class = "share"><img src="../../assets/share.png" alt="share"></span>
       <router-link to="card" class = "to-ticket">
-        <div class = "ticket-text">优惠券</div>
+        <el-button type="primary">优惠券</el-button>
       </router-link>
+      <span class = "share"><img src="../../assets/share.png" alt="share"></span>
+    </div>
+
+    <div class = "store-content">
+      <el-row>
+        <el-col :span="6" class = "store-menu">
+          <el-menu default-active ="storeContent_1" :router = true class="el-menu-vertical-demo">
+            <el-menu-item style="padding-left: 15%" index="storeContent_1"><i class="el-icon-menu"></i>全部</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_2"><i class="el-icon-menu"></i>零食</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_3"><i class="el-icon-menu"></i>饮料</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_4"><i class="el-icon-menu"></i>厨卫</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_5"><i class="el-icon-menu"></i>洗浴</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_6"><i class="el-icon-menu"></i>服装</el-menu-item>
+            <el-menu-item style="padding-left: 15%" index="storeContent_7"><i class="el-icon-menu"></i>办公</el-menu-item>
+          </el-menu>
+        </el-col>
+
+        <el-col :span="18">
+          <div class = "content">
+            <router-view></router-view>
+          </div>
+        </el-col>
+      </el-row>
     </div>
 
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {Input, Popover} from 'element-ui'
+  import {Input, Popover, Row, Col, Menu, MenuItem} from 'element-ui'
   export default {
     name: 'store',
     data () {
@@ -63,7 +85,11 @@
     },
     components: {
       'el-input': Input,
-      'el-popover': Popover
+      'el-popover': Popover,
+      'el-col': Col,
+      'el-row': Row,
+      'el-menu': Menu,
+      'el-menu-item': MenuItem
     }
   }
 </script>
@@ -71,6 +97,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" rel="stylesheet/stylus">
   .store {
+    position relative
     .store-header {
       height 2.5rem
       .back-home {
@@ -124,22 +151,30 @@
     .ticket-bar{
       height 5rem
       padding-top 0.4rem
-      background red
+      border-bottom 1px solid #777
       .store-resume{
         font-size 14px
         margin-left 7rem
       }
       .share{
-        margin-top 1rem
-        margin-left 2rem
+        float right
+        height 2rem
+        width 2rem
+        margin-top 0.2rem
+        margin-right 20%
       }
       .to-ticket{
-        width 70%
         float right
-        .ticket-text{
-          background blue
-          width 100%
-        }
+        margin-top 0.1rem
+        margin-right 20%
+      }
+      .store-content{
+        position fixed
+        left 0
+        bottom 0
+      }
+      .store-content{
+        height 100%
       }
     }
   }

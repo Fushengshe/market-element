@@ -30,6 +30,30 @@ const router = new Router({
       }
     },
     {
+      path: '/register',
+      name: 'register',
+      component (resolve) {
+        require.ensure(['@/pages/register.vue'], () => {
+          resolve(require('@/pages/register.vue'))
+        })
+      },
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem('token')
+        if (to) {
+          if (token) {
+            next({
+              path: '/index',
+              query: {redirect: to.fullPath}
+            })
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      }
+    },
+    {
       path: '/index',
       name: 'index',
       component (resolve) {
@@ -147,6 +171,92 @@ const router = new Router({
         require.ensure(['@/pages/store/store.vue'], () => {
           resolve(require('@/pages/store/store.vue'))
         })
+      },
+      children: [
+        {
+          path: '/storeContent_1',
+          name: 'storeContent_1',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_1.vue'], () => {
+              resolve(require('@/pages/store/storeContents_1.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_2',
+          name: 'storeContent_2',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_2.vue'], () => {
+              resolve(require('@/pages/store/storeContents_2.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_3',
+          name: 'storeContent_3',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_3.vue'], () => {
+              resolve(require('@/pages/store/storeContents_3.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_4',
+          name: 'storeContent_4',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_4.vue'], () => {
+              resolve(require('@/pages/store/storeContents_4.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_5',
+          name: 'storeContent_5',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_5.vue'], () => {
+              resolve(require('@/pages/store/storeContents_5.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_6',
+          name: 'storeContent_6',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_6.vue'], () => {
+              resolve(require('@/pages/store/storeContents_6.vue'))
+            })
+          }
+        },
+        {
+          path: '/storeContent_7',
+          name: 'storeContent_7',
+          component (resolve) {
+            require.ensure(['@/pages/store/storeContents_7.vue'], () => {
+              resolve(require('@/pages/store/storeContents_7.vue'))
+            })
+          }
+        }
+      ]
+    },
+    {
+      path: '/good',
+      name: 'good',
+      component (resolve) {
+        require.ensure(['@/pages/store/good.vue'], () => {
+          resolve(require('@/pages/store/good.vue'))
+        })
+      }
+    },
+    {
+      path: '/storeInfo',
+      name: 'storeInfo',
+      component (resolve) {
+        require.ensure(['@/pages/store/storeInfo.vue'], () => {
+          resolve(require('@/pages/store/storeInfo.vue'))
+        })
+      },
+      meta: {
+        requireAuth: true
       }
     },
     {
@@ -159,15 +269,6 @@ const router = new Router({
       },
       meta: {
         requireAuth: true
-      }
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component (resolve) {
-        require.ensure(['@/pages/register.vue'], () => {
-          resolve(require('@/pages/register.vue'))
-        })
       }
     },
     {

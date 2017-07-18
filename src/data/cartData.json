@@ -1,10 +1,10 @@
 {
   "result": {
-    "totalMoney": 4529,
     "list": [
       {
         "store": {
           "storeName": "小米旗舰店",
+          "totalMoney": 4499,
           "products": [
             {
               "productId": 1001,
@@ -42,6 +42,7 @@
       {
         "store": {
           "storeName": "三只松鼠",
+          "totalMoney": 30,
           "products": [
             {
               "productId": 1003,
