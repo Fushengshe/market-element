@@ -174,7 +174,7 @@ const router = new Router({
       },
       children: [
         {
-          path: '/storeContent_1',
+          path: '/',
           name: 'storeContent_1',
           component (resolve) {
             require.ensure(['@/pages/store/storeContents_1.vue'], () => {
@@ -237,6 +237,15 @@ const router = new Router({
           }
         }
       ]
+    },
+    {
+      path: '/storeCard',
+      name: 'storeCard',
+      component (resolve) {
+        require.ensure(['@/pages/store/storeCard.vue'], () => {
+          resolve(require('@/pages/store/storeCard.vue'))
+        })
+      }
     },
     {
       path: '/good',

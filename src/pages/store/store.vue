@@ -35,7 +35,7 @@
         商铺号：{{ storeId }} | {{ collected }}人收藏 <br />
         店铺等级
       </div>
-      <router-link to="card" class = "to-ticket">
+      <router-link to="/storeCard" class = "to-ticket">
         <el-button type="primary">优惠券</el-button>
       </router-link>
       <span class = "share"><img src="../../assets/share.png" alt="share"></span>
@@ -44,14 +44,14 @@
     <div class = "store-content">
       <el-row>
         <el-col :span="6" class = "store-menu">
-          <el-menu default-active ="storeContent_1" :router = true class="el-menu-vertical">
-            <el-menu-item class = "el-menu-item" index="storeContent_1"><i class="el-icon-menu"></i>全部</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_2"><i class="el-icon-menu"></i>零食</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_3"><i class="el-icon-menu"></i>饮料</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_4"><i class="el-icon-menu"></i>厨卫</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_5"><i class="el-icon-menu"></i>洗浴</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_6"><i class="el-icon-menu"></i>服装</el-menu-item>
-            <el-menu-item class = "el-menu-item" index="storeContent_7"><i class="el-icon-menu"></i>办公</el-menu-item>
+          <el-menu default-active ="/store/" :router = true class="el-menu-vertical">
+            <el-menu-item class = "el-menu-item" index="/store/"><i class="el-icon-menu"></i>全部</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_2"><i class="el-icon-menu"></i>零食</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_3"><i class="el-icon-menu"></i>饮料</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_4"><i class="el-icon-menu"></i>厨卫</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_5"><i class="el-icon-menu"></i>洗浴</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_6"><i class="el-icon-menu"></i>服装</el-menu-item>
+            <el-menu-item class = "el-menu-item" index="/storeContent_7"><i class="el-icon-menu"></i>办公</el-menu-item>
           </el-menu>
         </el-col>
 
@@ -62,7 +62,6 @@
         </el-col>
       </el-row>
     </div>
-
   </div>
 </template>
 
@@ -178,7 +177,7 @@
         position fixed
         left 0
         ul{
-          min-height 40rem
+          min-height 25rem
         }
         .el-menu-item{
           height 3.5rem
