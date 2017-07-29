@@ -11,6 +11,9 @@ export default {
     return instance.post('/login', data)
   },
   getProducts (data) {
-    return instance.get('/data/cartData.json', data)
+    return instance.get('../../static/data/cartData.json', data)
+  },
+  getStoreGoods (data) {
+    return instance.get('../../static/data/storeData.json', data)
   }
 }

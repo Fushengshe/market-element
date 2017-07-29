@@ -6,7 +6,7 @@
       </router-link>
 
       <el-popover class="more-menu" ref="popover1" placement="bottom" width="80" trigger="click">
-        <ul class = "menu">
+        <ul class="menu">
           <li class="store-info">店铺信息</li>
           <li class="store-contact">联系商家</li>
           <li class="store-collection">收藏</li>
@@ -22,68 +22,107 @@
       </span>
     </div>
 
-    <div class = "store-resume">
-      <div class = "avatar-warp">
-        <div class = "store-avatar">
-          <img src="http://temp.im/80x80" alt="store-avatar">
+
+    <div class="store-resume">
+      <div class="avatar-warp">
+        <div class="store-avatar">
+          <img src="http://temp.im/80x80" alt="store-avatDar">
         </div>
 
-        <div class = "store-info">
-          <p class = "store-name">{{ storeName }}</p>
-          <p class = "store-id">商铺号 {{ storeId }}</p>
-          <p class = "collected-num">{{ collected }}人收藏</p>
+        <div class="store-info">
+          <p class="store-name">{{ storeData.storeName }}</p>
+          <p class="store-id">商铺号 {{ storeData.storeID }}</p>
+          <p class="collected-num">{{ storeData.collectedNum }}人收藏</p>
         </div>
       </div>
 
-      <p class = "store-rate">店铺等级 ※ ※ ※ ※ ※</p>
+      <p class="store-rate">店铺等级 ※ ※ ※ ※ ※</p>
 
-      <router-link to="/storeCard" class = "to-ticket">
+      <router-link to="/storeCard" class="to-ticket">
         <el-button type="primary">优惠券</el-button>
       </router-link>
 
-      <span class = "share">
+      <span class="share">
         <img src="../../assets/share.png" alt="share">
       </span>
 
-      <div  class = "store-promotion">
+      <div class="store-promotion">
         <router-link to="/storeInfo">
-          <p>xxxxxxx</p>
+          <p>{{ storeData.storeSlogan }}</p>
         </router-link>
       </div>
     </div>
 
-    <div class = "store-content">
-      <el-row>
-        <el-col :span="6" class = "store-menu">
 
-        </el-col>
-      </el-row>
+    <div class="store-content">
+      <div class="store-menu" ref="storeMenu">
+        <ul class="menu-items">
+          <li class="menu-item" v-for="item in storeData.storeGoods">
+            <p>{{ item.goodClassify }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="goods-warp" ref="goodsWarp">
+        <ul class="store-goods">
+          <li class="store-good" v-for="item in storeData.storeGoods">
+            <h1 class="good-title">{{ item.goodClassify }}</h1>
+            <ul>
+              <router-link to="/good">
+                <li v-for="good in item.goods" class="good">
+                  <img src="http://temp.im/80x80" alt="good-img" class="good-img">
+                  <div class="good-info">
+                    <h2 class="good-name">{{ good.name }}</h2>
+                    <p class="good-price">￥{{ good.price }}</p>
+                    <p class="brought-num">{{ good.broughtNum }}人付款</p>
+                    <p class="available"></p>
+                  </div>
+                </li>
+              </router-link>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { Input, Popover, Row, Col } from 'element-ui'
+  import api from '../../config/api'
+  import { Input, Popover } from 'element-ui'
+  import BScroll from 'better-scroll'
+
+  const ERR_OK = 0
   export default {
     name: 'store',
     data () {
       return {
-        storeName: '滴滴',
-        storeId: '10001',
-        collected: '111',
+        storeData: [],
         input: ''
       }
+    },
+    created () {
+      api.getStoreGoods().then(({data}) => {
+        if (data.code === ERR_OK) {
+          this.storeData = data
+          this.$nextTick(() => {
+            this._initScroll()
+          })
+        }
+      })
     },
     methods: {
       handleIconClick (ev) {
         console.log(ev)
+      },
+      _initScroll () {
+        this.menuScroll = new BScroll(this.$refs.storeMenu, {})
+        this.foodScroll = new BScroll(this.$refs.goodsWarp, {})
       }
     },
     components: {
       'el-input': Input,
-      'el-popover': Popover,
-      'el-col': Col,
-      'el-row': Row
+      'el-popover': Popover
     }
   }
 </script>
@@ -116,52 +155,52 @@
         float right
         margin 0.2rem 0.5rem
       }
-      .more-menu{
+      .more-menu {
         padding 0
-        .menu{
+        .menu {
           list-style none
           font-size 15px
         }
       }
     }
-    .store-resume{
+    .store-resume {
       background url("http://temp.im/320x150")
       background-size cover
       padding-top 1.2rem
       overflow auto
-      .avatar-warp{
+      .avatar-warp {
         display flex
         margin-bottom 0.8rem
-        .store-avatar{
+        .store-avatar {
           width 5rem
           height 5rem
           margin 0 2.5rem
         }
-        .store-info{
+        .store-info {
           height 5rem
-          p{
+          p {
             margin 0
           }
-          .store-name{
+          .store-name {
             font-size 20px
             margin-bottom 0.5rem
           }
         }
       }
-      .store-rate{
+      .store-rate {
         display inline-block
         float left
         margin 0.8rem 0 0 1rem
       }
-      .to-ticket{
+      .to-ticket {
         margin-left 14%
       }
-      .share{
+      .share {
         display inline-block
         float right
         margin 0.1rem 8%
       }
-      .store-promotion{
+      .store-promotion {
         postion absolute
         bottom 0
         margin-top 0.5rem
@@ -169,7 +208,7 @@
         height 1.5rem
         a {
           text-decoration none
-          p{
+          p {
             padding 0 1rem
             margin 0
             color #2c3e50
@@ -179,9 +218,88 @@
         }
       }
     }
-
-    .store-content{
+    .store-content {
+      display flex
+      position absolute
+      top 13.7rem
+      bottom 0
       width 100%
+      overflow hidden
+      .store-menu {
+        flex 0 0 5rem
+        border-right 1px solid #888
+        background #f3f5f7
+        .menu-items {
+          margin 0
+          padding 0
+          .menu-item {
+            display table
+            list-style none
+            height 3rem
+            width 4rem
+            margin 0 auto
+            text-align center
+            border-bottom 1px solid #888
+            p {
+              display table-cell
+              vertical-align middle
+              margin 0
+              font-size 14px
+            }
+          }
+        }
+      }
+      .goods-warp {
+        flex 1
+        a {
+          text-decoration none
+        }
+        .store-goods {
+          padding 0
+          margin 0
+          .store-good {
+            list-style none
+            ul {
+              margin 0
+              padding 0
+            }
+            .good-title {
+              margin 0
+              padding 0.2rem 1rem
+              font-size 16px
+              heihgt 0.6rem
+              border-bottom 1px solid #888
+              background #f3f5f7
+            }
+            .good {
+              list-style none
+              height 6rem
+              border-bottom 1px solid #888
+              .good-img {
+                float left
+                margin 0 1rem 1rem 1rem
+              }
+              .good-info {
+                .good-name {
+                  margin 1rem 0
+                  color #2c3e50
+                }
+                .good-price {
+                  display inline-block
+                  margin 0
+                  color #ff1b34
+                }
+                .brought-num {
+                  display inline-block
+                  float right
+                  margin 0 1.5rem
+                  color #2c3e50
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 </style>
