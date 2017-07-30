@@ -178,7 +178,7 @@
         },
         unbind: (el, binding) => {
           // Remove Event Listeners
-          // 监听移除不起作用，不知道是哪里出了问题
+          // FIXME:监听移除不起作用，不知道是哪里出了问题
           console.log('unbind')
           el.__vueClickOutside__ = null
           document.body.removeEventListener('click', el.__vueClickOutside__)

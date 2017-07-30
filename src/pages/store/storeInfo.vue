@@ -1,6 +1,6 @@
 <template>
   <div class="store-info">
-    <div class = "store-info-header">
+    <div class = "store-info-header border-1px">
       <router-link to="/store">
         <div class = "back-to-store">
           <img src="../../assets/back.png" alt="back">
@@ -70,7 +70,7 @@
     width 100%
     /*overflow hidden*/
     .store-info-header{
-      border-bottom 1px solid #666
+      border-1px(rgba(7,17,27,0.1))
       .back-to-store{
         display inline-block
         position absolute

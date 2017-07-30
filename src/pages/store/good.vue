@@ -1,11 +1,9 @@
 <template>
   <div class="good">
     <div class="store-header">
-      <router-link to="/store">
-        <span class="back-home"><img src="../../assets/back.png" alt="back"></span>
-      </router-link>
+      <span class="back-home" @click="handleBack"><img src="../../assets/back.png" alt="back"></span>
 
-      <div class="good-name">{{ goodName }}</div>
+      <div class="good-name">{{ goodData.goodName }}</div>
     </div>
 
     <div class = "product-image">
@@ -18,12 +16,12 @@
 
     <div class = "good-info">
       <div class = "info">
-        <p class = "name">{{ goodName }}</p>
-        <p class = "description">{{ description }}</p>
-        <p>月销{{ monthlySales }}笔 | {{ purchases }}人评价 | 行行行行行</p>
+        <p class = "name">{{ goodData.goodName }}</p>
+        <p class = "description">{{ goodData.description }}</p>
+        <p>月销{{ goodData.monthlySales }}笔 | {{ goodData.purchases }}人评价 | 行行行行行</p>
       </div>
 
-      <div class = "price">￥{{ price }}</div>
+      <div class = "price">￥{{ goodData.price }}</div>
 
       <el-button class = "preferential">请选择 分类标准</el-button>
       <el-button class = "preferential">优惠券 / 促销信息</el-button>
@@ -31,15 +29,15 @@
 
     <div class = "store-info">
       <div class = "store-info-left">
-        <p class = "storeName">{{ storeName }}</p>
+        <p class = "storeName">{{ goodData.storeName }}</p>
         <p>行行行行行</p>
-        <p>{{ storeDescription }}</p>
+        <p>{{ goodData.storeDescription }}</p>
       </div>
 
       <div class = "store-info-right">
         <div class = "distance">
-          <p>{{ address }}</p>
-          <p>{{ distance }}米</p>
+          <p>{{ goodData.address }}</p>
+          <p>{{ goodData.distance }}米</p>
         </div>
         <el-button class = "goto">导航到商店</el-button>
       </div>
@@ -60,7 +58,7 @@
       <div class = "footer-top">
         <span class = "share"><img src="../../assets/share.png" alt="share-icaon"></span>
         <span class = "like"><img src="../../assets/Like.png" alt="lick-icon"></span>
-        <span class = "add">加入购物车</span>
+        <span class = "add">收 藏</span>
       </div>
 
       <div class = "footer-bottom">
@@ -73,25 +71,31 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import api from '../../config/api'
   import {Carousel, CarouselItem} from 'element-ui'
+  const ERR_OK = 0
   export default {
     name: 'good',
     data () {
       return {
-        goodName: '咸鱼',
-        storeName: '咸鱼店',
-        description: '666666',
-        monthlySales: '66',
-        purchases: '666',
-        price: '123',
-        storeDescription: '77777777777',
-        address: 'xxxx路',
-        distance: '2344'
+        goodData: []
       }
+    },
+    created () {
+      api.getGoodData().then(({data}) => {
+        if (data.code === ERR_OK) {
+          this.goodData = data
+        }
+      })
     },
     components: {
       'el-carousel': Carousel,
       'el-carousel-item': CarouselItem
+    },
+    methods: {
+      handleBack () {
+        this.$router.go(-1)
+      }
     }
   }
 </script>

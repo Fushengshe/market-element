@@ -1,9 +1,7 @@
 <template>
   <div class="store">
     <div class="store-header">
-      <router-link to="/home">
-        <span class="back-home"><img src="../../assets/back.png" alt="back"></span>
-      </router-link>
+      <span class="back-home" @click="handleBack"><img src="../../assets/back.png" alt="back"></span>
 
       <el-popover class="more-menu" ref="popover1" placement="bottom" width="80" trigger="click">
         <ul class="menu">
@@ -57,19 +55,20 @@
     <div class="store-content">
       <div class="store-menu" ref="storeMenu">
         <ul class="menu-items">
-          <li class="menu-item" v-for="item in storeData.storeGoods">
-            <p>{{ item.goodClassify }}</p>
+          <li class="menu-item border-1px" v-for="(item, $index) in storeData.storeGoods"
+              :class="{'current':currentIndex===$index}" @click="selectMenu($index, $event)">
+            <p class="text">{{ item.goodClassify }}</p>
           </li>
         </ul>
       </div>
 
       <div class="goods-warp" ref="goodsWarp">
         <ul class="store-goods">
-          <li class="store-good" v-for="item in storeData.storeGoods">
-            <h1 class="good-title">{{ item.goodClassify }}</h1>
+          <li class="store-good store-good-hook" v-for="item in storeData.storeGoods">
+            <h1 class="good-title border-1px">{{ item.goodClassify }}</h1>
             <ul>
               <router-link to="/good">
-                <li v-for="good in item.goods" class="good">
+                <li v-for="good in item.goods" class="good border-1px">
                   <img src="http://temp.im/80x80" alt="good-img" class="good-img">
                   <div class="good-info">
                     <h2 class="good-name">{{ good.name }}</h2>
@@ -98,26 +97,71 @@
     data () {
       return {
         storeData: [],
-        input: ''
+        input: '',
+        listHeight: [],
+        scrollY: 0
+      }
+    },
+    computed: {
+      currentIndex () {
+        // 计算当前goodList高度索引，并与scrollY比较
+        for (let j = 0; j < this.listHeight.length; j++) {
+          let height1 = this.listHeight[j]
+          let height2 = this.listHeight[j + 1]
+          if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+            return j
+          }
+        }
+        return 0
       }
     },
     created () {
-      api.getStoreGoods().then(({data}) => {
+      api.getStoreData().then(({data}) => {
         if (data.code === ERR_OK) {
           this.storeData = data
           this.$nextTick(() => {
+            // 操作原生dom时，一定要注意调用nextTick，等dom渲染完毕后再进行操作，防止错误的发生
             this._initScroll()
+            this._calculateHeight()
           })
         }
       })
     },
     methods: {
+      handleBack () {
+        this.$router.go(-1)
+      },
       handleIconClick (ev) {
         console.log(ev)
       },
       _initScroll () {
-        this.menuScroll = new BScroll(this.$refs.storeMenu, {})
-        this.foodScroll = new BScroll(this.$refs.goodsWarp, {})
+        // 初始化betterScroll
+        this.menuScroll = new BScroll(this.$refs.storeMenu, {click: true})
+        this.goodScroll = new BScroll(this.$refs.goodsWarp, {probeType: 3, click: true})
+
+        this.goodScroll.on('scroll', (position) => {
+          this.scrollY = Math.abs(Math.round(position.y))
+        })
+      },
+      _calculateHeight () {
+        // 计算每个goodList的高度并存入listHeight用于与scrollY作比较
+        let goodList = this.$refs.goodsWarp.getElementsByClassName('store-good-hook')
+        let height = 0
+        this.listHeight.push(height)
+        for (let i = 0; i < goodList.length; i++) {
+          let item = goodList[i]
+          height += item.clientHeight
+          this.listHeight.push(height)
+        }
+      },
+      selectMenu (index, ev) {
+        // 左侧menu点击联动右边goodList
+        if (!ev._constructed) {
+          return
+        }
+        let goodList = this.$refs.goodsWarp.getElementsByClassName('store-good-hook')
+        let el = goodList[index]
+        this.goodScroll.scrollToElement(el, 500)
       }
     },
     components: {
@@ -129,6 +173,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/index.styl"
   .store {
     height 100%
     overflow auto
@@ -155,11 +200,16 @@
         float right
         margin 0.2rem 0.5rem
       }
-      .more-menu {
+      .el-popover {
         padding 0
-        .menu {
-          list-style none
-          font-size 15px
+        margin 0
+        ul {
+          padding 0
+          margin 0
+          li{
+            list-style none
+            font-size 15px
+          }
         }
       }
     }
@@ -211,9 +261,10 @@
           p {
             padding 0 1rem
             margin 0
-            color #2c3e50
+            color #fff
             ling-height 1.5rem
             font-size 17px
+            overflow hidden
           }
         }
       }
@@ -221,13 +272,12 @@
     .store-content {
       display flex
       position absolute
-      top 13.7rem
+      top 13.73rem
       bottom 0
       width 100%
       overflow hidden
       .store-menu {
         flex 0 0 5rem
-        border-right 1px solid #888
         background #f3f5f7
         .menu-items {
           margin 0
@@ -236,14 +286,22 @@
             display table
             list-style none
             height 3rem
-            width 4rem
+            width 100%
             margin 0 auto
             text-align center
-            border-bottom 1px solid #888
-            p {
+            border-1px(rgba(7,17,27,0.1))
+            &.current {
+              position relative
+              margin -1px 0
+              z-index 10
+              background #fff
+              font-weight 700
+              border none
+            }
+            .text {
               display table-cell
-              vertical-align middle
               margin 0
+              vertical-align middle
               font-size 14px
             }
           }
@@ -265,16 +323,16 @@
             }
             .good-title {
               margin 0
-              padding 0.2rem 1rem
+              padding 0.1rem 1rem
               font-size 16px
-              heihgt 0.6rem
-              border-bottom 1px solid #888
+              border-left 5px solid rgba(7,17,27,0.1)
+              border-1px(rgba(7,17,27,0.1))
               background #f3f5f7
             }
             .good {
               list-style none
               height 6rem
-              border-bottom 1px solid #888
+              border-1px(rgba(7,17,7,0.1))
               .good-img {
                 float left
                 margin 0 1rem 1rem 1rem

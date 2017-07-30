@@ -1,0 +1,15 @@
+{
+  "code": 0,
+  "storeName": "咸鱼店",
+  "goodName": "大咸鱼",
+  "description": "一万年老咸鱼",
+  "detail": "bilibili老咸鱼",
+  "goodRate": 10,
+  "monthlySales": 66,
+  "purchases": 666,
+  "price": 123,
+  "storeDescription": "专业腌制万年老咸鱼，不咸不要钱",
+  "storeRate": 10,
+  "address": "南京路",
+  "distance": 2344
+}
