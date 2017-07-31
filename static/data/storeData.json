@@ -1,7 +1,12 @@
 {
   "code": 0,
+  "flag": 0,
   "storeID": 100001,
   "storeName": "滴滴",
+  "storeAddress": "",
+  "storeLevel": 6,
+  "contact": "13232323232",
+  "praise": "94%",
   "collectedNum": 152,
   "storeRate": 5,
   "storeSlogan": "1.开张大吉;2.全场商品满200-20;3.进店即送苹果一个;4.本店所有商品9折起;",
@@ -10,6 +15,7 @@
       "goodClassify": "零食",
       "goods": [
         {
+          "id": "0001",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -17,6 +23,7 @@
           "imgURL": ""
         },
         {
+          "id": "0002",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -24,6 +31,7 @@
           "imgURL": ""
         },
         {
+          "id": "0003",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -31,6 +39,7 @@
           "imgURL": ""
         },
         {
+          "id": "0004",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -43,6 +52,7 @@
       "goodClassify": "饮料",
       "goods": [
         {
+          "id": "0005",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -50,6 +60,7 @@
           "imgURL": ""
         },
         {
+          "id": "0006",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -57,6 +68,7 @@
           "imgURL": ""
         },
         {
+          "id": "0007",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -64,6 +76,7 @@
           "imgURL": ""
         },
         {
+          "id": "0008",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -76,6 +89,7 @@
       "goodClassify": "厨卫用品",
       "goods": [
         {
+          "id": "0009",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -83,6 +97,7 @@
           "imgURL": ""
         },
         {
+          "id": "0010",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -90,6 +105,7 @@
           "imgURL": ""
         },
         {
+          "id": "0011",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -97,6 +113,7 @@
           "imgURL": ""
         },
         {
+          "id": "0012",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -109,6 +126,7 @@
       "goodClassify": "洗浴用品",
       "goods": [
         {
+          "id": "0013",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -116,6 +134,7 @@
           "imgURL": ""
         },
         {
+          "id": "0014",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -123,6 +142,7 @@
           "imgURL": ""
         },
         {
+          "id": "0015",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -130,6 +150,7 @@
           "imgURL": ""
         },
         {
+          "id": "0016",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -142,6 +163,7 @@
       "goodClassify": "衣服",
       "goods": [
         {
+          "id": "0017",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -149,6 +171,7 @@
           "imgURL": ""
         },
         {
+          "id": "0018",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -156,6 +179,7 @@
           "imgURL": ""
         },
         {
+          "id": "0019",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -163,6 +187,7 @@
           "imgURL": ""
         },
         {
+          "id": "0020",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -175,6 +200,7 @@
       "goodClassify": "鞋子",
       "goods": [
         {
+          "id": "0021",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -182,6 +208,7 @@
           "imgURL": ""
         },
         {
+          "id": "0022",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -189,6 +216,7 @@
           "imgURL": ""
         },
         {
+          "id": "0023",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -196,6 +224,7 @@
           "imgURL": ""
         },
         {
+          "id": "0024",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -208,6 +237,7 @@
       "goodClassify": "调料",
       "goods": [
         {
+          "id": "0025",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -215,6 +245,7 @@
           "imgURL": ""
         },
         {
+          "id": "0026",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -222,6 +253,7 @@
           "imgURL": ""
         },
         {
+          "id": "0027",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -229,6 +261,7 @@
           "imgURL": ""
         },
         {
+          "id": "0028",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,
@@ -241,6 +274,7 @@
       "goodClassify": "办公用品",
       "goods": [
         {
+          "id": "0029",
           "name": "大炸串",
           "price": 10,
           "broughtNum": 215,
@@ -248,6 +282,7 @@
           "imgURL": ""
         },
         {
+          "id": "0030",
           "name": "烧饼",
           "price": 8,
           "broughtNum": 25,
@@ -255,6 +290,7 @@
           "imgURL": ""
         },
         {
+          "id": "0031",
           "name": "土豆片",
           "price": 5,
           "broughtNum": 513,
@@ -262,6 +298,7 @@
           "imgURL": ""
         },
         {
+          "id": "0032",
           "name": "比巴卜",
           "price": 1,
           "broughtNum": 412,

@@ -7,7 +7,7 @@
         <ul class="menu">
           <li class="store-info">店铺信息</li>
           <li class="store-contact">联系商家</li>
-          <li class="store-collection">收藏</li>
+          <li class="store-share">分享</li>
           <li class="store-report">举报</li>
         </ul>
       </el-popover>
@@ -40,8 +40,8 @@
         <el-button type="primary">优惠券</el-button>
       </router-link>
 
-      <span class="share">
-        <img src="../../assets/share.png" alt="share">
+      <span class="collect" @click="collectStore">
+        <img src="../../assets/Like.png" alt="Like">
       </span>
 
       <div class="store-promotion">
@@ -67,8 +67,8 @@
           <li class="store-good store-good-hook" v-for="item in storeData.storeGoods">
             <h1 class="good-title border-1px">{{ item.goodClassify }}</h1>
             <ul>
-              <router-link to="/good">
-                <li v-for="good in item.goods" class="good border-1px">
+              <!--<router-link to="/good">-->
+                <li v-for="good in item.goods" @click="handleGoodClick(good.id)" class="good border-1px">
                   <img src="http://temp.im/80x80" alt="good-img" class="good-img">
                   <div class="good-info">
                     <h2 class="good-name">{{ good.name }}</h2>
@@ -77,7 +77,7 @@
                     <p class="available"></p>
                   </div>
                 </li>
-              </router-link>
+              <!--</router-link>-->
             </ul>
           </li>
         </ul>
@@ -88,7 +88,7 @@
 
 <script type="text/ecmascript-6">
   import api from '../../config/api'
-  import { Input, Popover } from 'element-ui'
+  import { Input, Popover, Message } from 'element-ui'
   import BScroll from 'better-scroll'
 
   const ERR_OK = 0
@@ -133,6 +133,30 @@
       },
       handleIconClick (ev) {
         console.log(ev)
+      },
+      handleGoodClick (id) {
+        this.$router.push({
+          path: '/good',
+          query: {
+            id: id
+          }
+        })
+      },
+      collectStore () {
+        let opt = {
+          storeName: this.goodData.storeName,
+          storeLevel: this.goodData.storeLevel,
+          contact: this.goodData.contact,
+          praise: this.goodData.praise,
+          storeAddress: this.goodData.storeAddress
+        }
+        api.collectGood(opt).then(({data}) => {
+          if (data.code === ERR_OK) {
+            Message.success('收藏成功')
+          } else {
+            Message.error('系统错误，请稍后重试')
+          }
+        })
       },
       _initScroll () {
         // 初始化betterScroll
@@ -245,7 +269,7 @@
       .to-ticket {
         margin-left 14%
       }
-      .share {
+      .collect {
         display inline-block
         float right
         margin 0.1rem 8%

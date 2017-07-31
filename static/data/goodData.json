@@ -1,8 +1,9 @@
 {
   "code": 0,
+  "flag": 0,
   "storeName": "咸鱼店",
   "goodName": "大咸鱼",
-  "description": "一万年老咸鱼",
+  "parts": "赠送筷子",
   "detail": "bilibili老咸鱼",
   "goodRate": 10,
   "monthlySales": 66,

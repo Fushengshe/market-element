@@ -1,6 +1,6 @@
 const state = {
   token: null,
-  username: '',
+  userID: '',
   login: false
 }
 

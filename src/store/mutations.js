@@ -11,8 +11,8 @@ const mutations = {
     localStorage.removeItem('token')
     state.login = true
   },
-  [types.USERNAME]: (state, data) => {
-    localStorage.setItem('username', data)
+  [types.USERID]: (state, data) => {
+    localStorage.setItem('userID', data)
     state.username = data
   }
 }

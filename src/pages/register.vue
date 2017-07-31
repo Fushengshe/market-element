@@ -108,7 +108,7 @@
             api.userRegister(opt).then(({data}) => {
               if (data.code === ERR_OK) {
                 Message.success('Register successful')
-                this.$router.push('./login')
+                this.$router.push('/')
               } else if (data.code === ERR_USER) {
                 Message.error('用户名已存在')
               } else {

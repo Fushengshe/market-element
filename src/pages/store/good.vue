@@ -17,7 +17,7 @@
     <div class = "good-info">
       <div class = "info">
         <p class = "name">{{ goodData.goodName }}</p>
-        <p class = "description">{{ goodData.description }}</p>
+        <p class = "description">{{ goodData.detail }}</p>
         <p>月销{{ goodData.monthlySales }}笔 | {{ goodData.purchases }}人评价 | 行行行行行</p>
       </div>
 
@@ -58,7 +58,7 @@
       <div class = "footer-top">
         <span class = "share"><img src="../../assets/share.png" alt="share-icaon"></span>
         <span class = "like"><img src="../../assets/Like.png" alt="lick-icon"></span>
-        <span class = "add">收 藏</span>
+        <span class = "add" @click="collect">收 藏</span>
       </div>
 
       <div class = "footer-bottom">
@@ -72,7 +72,7 @@
 
 <script type="text/ecmascript-6">
   import api from '../../config/api'
-  import {Carousel, CarouselItem} from 'element-ui'
+  import {Carousel, CarouselItem, Message} from 'element-ui'
   const ERR_OK = 0
   export default {
     name: 'good',
@@ -85,6 +85,7 @@
       api.getGoodData().then(({data}) => {
         if (data.code === ERR_OK) {
           this.goodData = data
+          console.log(this.$route.query.id)
         }
       })
     },
@@ -95,6 +96,20 @@
     methods: {
       handleBack () {
         this.$router.go(-1)
+      },
+      collect () {
+        let opt = {
+          goods_id: parseInt(this.$route.query.id),
+          user_id: parseInt(this.$store.state.userID)
+        }
+        console.log(opt)
+        api.collectGood(opt).then(({data}) => {
+          if (data.code === ERR_OK) {
+            Message.success('收藏成功')
+          } else {
+            Message.error('系统错误，请稍后重试')
+          }
+        })
       }
     }
   }

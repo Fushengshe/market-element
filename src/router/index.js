@@ -30,6 +30,54 @@ const router = new Router({
       }
     },
     {
+      path: '/forget',
+      name: 'forget',
+      component (resolve) {
+        require.ensure(['@/pages/forget.vue'], () => {
+          resolve(require('@/pages/forget.vue'))
+        })
+      },
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem('token')
+        if (to) {
+          if (token) {
+            next({
+              path: '/index',
+              query: {redirect: to.fullPath}
+            })
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/reset',
+      name: 'reset',
+      component (resolve) {
+        require.ensure(['@/pages/resetPassword.vue'], () => {
+          resolve(require('@/pages/resetPassword.vue'))
+        })
+      },
+      beforeEnter: (to, from, next) => {
+        let token = localStorage.getItem('token')
+        if (to) {
+          if (token) {
+            next({
+              path: '/index',
+              query: {redirect: to.fullPath}
+            })
+          } else {
+            next()
+          }
+        } else {
+          next()
+        }
+      }
+    },
+    {
       path: '/register',
       name: 'register',
       component (resolve) {

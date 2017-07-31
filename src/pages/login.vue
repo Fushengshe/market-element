@@ -18,7 +18,7 @@
           <el-input v-model="ruleFormLogin.password" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
       </el-form>
-      <router-link to="#" class="forget">忘记密码</router-link>
+      <router-link to="/forget" class="forget">忘记密码</router-link>
       <el-button type="primary" class="login-btn" @click="submitForm('ruleFormLogin')">登 录</el-button>
       <router-link to="register" class="register">还没有账号？</router-link>
       <router-link to="register" class="issue">登录时遇到问题？</router-link>
@@ -80,7 +80,7 @@
               } else if (data.code === ERR_OK) {
                 Message.success('登录成功！！')
                 this.$store.dispatch('UserLogin', data.token)
-                this.$store.dispatch('UserName', data.data.user.username)
+                this.$store.dispatch('UserID', data.data.user.userId)
                 let redirect = decodeURIComponent(this.$route.query.redirect || '/index')
                 this.$router.push({
                   path: redirect
